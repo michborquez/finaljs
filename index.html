@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Petals & Co. - Tu florería y regalería ideal. Encuentra los mejores arreglos florales y regalos únicos con envío a domicilio.">
+    <meta name="keywords" content="flores, florería, regalos, ramos de rosas, plantas, boutique floral">
+    <title>Petals & Co. | Florería y Regalería</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- HEADER & NAV -->
+    <header class="main-header sticky-top bg-white shadow-sm">
+        <div class="container d-flex justify-content-between align-items-center py-3">
+            <a href="#inicio" class="logo text-decoration-none">Petals & Co.</a>
+            <nav class="main-nav" aria-label="Navegación principal">
+                <ul class="d-flex list-unstyled m-0 gap-4">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#productos">Productos</a></li>
+                    <li><a href="#reseñas">Reseñas</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+            <!-- Carrito -->
+            <button class="btn btn-cart position-relative" data-bs-toggle="modal" data-bs-target="#modalCarrito" aria-label="Ver carrito de compras">
+                🛒 Mi Carrito
+                <span id="contador-carrito" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- SECCIÓN INICIO / HERO (Background con imagen/degradado) -->
+        <section id="inicio" class="hero-section d-flex align-items-center text-center">
+            <div class="container text-white p-5 rounded">
+                <h1 class="display-3 fw-bold">Flores frescas & regalos con amor</h1>
+                <p class="lead">Diseños florales exclusivos para alegrar los días de las personas que más queres.</p>
+                <a href="#productos" class="btn btn-custom mt-3">Ver Catálogo</a>
+            </div>
+        </section>
+
+        <!-- SECCIÓN PRODUCTOS -->
+        <section id="productos" class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Nuestras Flores y Regalos</h2>
+                <p class="text-muted">Productos frescos y artesanales seleccionados para vos</p>
+            </div>
+            <!-- Spinner de carga -->
+            <div id="loading" class="text-center py-5">
+                <div class="spinner-border text-success" role="status">
+                    <span class="visually-hidden">Cargando productos...</span>
+                </div>
+            </div>
+            <!-- Contenedor Flexbox de Tarjetas -->
+            <div id="contenedor-productos" class="products-flex-container"></div>
+        </section>
+
+        <!-- SECCIÓN RESEÑAS -->
+        <section id="reseñas" class="bg-light py-5">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h2 class="section-title">Lo que dicen nuestros clientes</h2>
+                </div>
+                <div class="reviews-grid">
+                    <article class="review-card">
+                        <p class="stars">★★★★★</p>
+                        <p>"El ramo de rosas llegó impecable, súper fresco y con un aroma hermoso. Excelente servicio de envío."</p>
+                        <cite class="fw-bold">- Marcela L.</cite>
+                    </article>
+                    <article class="review-card">
+                        <p class="stars">★★★★★</p>
+                        <p>"Compré una caja de regalo con suculentas para un cumpleaños y la cumpleañera quedó fascinada. Volveré a comprar."</p>
+                        <cite class="fw-bold">- Juan José M.</cite>
+                    </article>
+                    <article class="review-card">
+                        <p class="stars">★★★★☆</p>
+                        <p>"Muy buena atención al cliente por WhatsApp. Los globos y flores combinaban perfecto con la paleta de colores."</p>
+                        <cite class="fw-bold">- Sofía R.</cite>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN CONTACTO Y MULTIMEDIA -->
+        <section id="contacto" class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Contáctanos</h2>
+                <p class="text-muted">¿Tenes alguna duda o pedido especial? Escribinos.</p>
+            </div>
+            <div class="contacto-wrapper">
+                <!-- Formulario Formspree -->
+                <div class="contacto-form-container">
+                    <form id="form-contacto" action="https://formspree.io/f/xgodqoka" method="POST" novalidate>
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre Completo</label>
+                            <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Ej. Ana García" required>
+                            <div class="error-feedback text-danger small mt-1 d-none" id="error-nombre">Por favor, ingresa tu nombre.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Correo Electrónico</label>
+                            <input type="email" name="email" id="email" class="form-control" placeholder="nombre@correo.com" required>
+                            <div class="error-feedback text-danger small mt-1 d-none" id="error-email">Ingresa un correo electrónico válido.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="mensaje" class="form-label">Mensaje o Pedido</label>
+                            <textarea name="mensaje" id="mensaje" rows="4" class="form-control" placeholder="Cuéntanos qué necesitas..." required></textarea>
+                            <div class="error-feedback text-danger small mt-1 d-none" id="error-mensaje">El mensaje no puede estar vacío.</div>
+                        </div>
+                        <button type="submit" class="btn btn-custom w-100">Enviar Mensaje</button>
+                    </form>
+                    <div id="form-success" class="alert alert-success mt-3 d-none" role="alert">
+                        ¡Gracias! Tu mensaje ha sido enviado correctamente de forma segura.
+                    </div>
+                </div>
+
+                <!-- Contenido Multimedia  -->
+                <div class="contacto-media">
+                    <h3 class="h5 mb-3 fw-bold text-success">Nuestra Tienda Física</h3>
+                    <div class="ratio ratio-16x9 rounded overflow-hidden shadow-sm">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.0167132768406!2d-58.38375902425946!3d-34.60373887295444!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4aa9c076da5ed83d%3A0x43e1629da8c9311!2sObelisco!5e0!3m2!1ses-419!2sar!4v1710000000000!5m2!1ses-419!2sar" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade"
+                            title="Ubicación en Google Maps de Petals & Co.">
+                        </iframe>
+                    </div>
+                    <p class="mt-2 text-muted small">📍 Av. Corrientes y Av. 9 de Julio, Ciudad de Buenos Aires.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER SEMÁNTICO -->
+    <footer class="main-footer text-center py-4 bg-dark text-white">
+        <div class="container">
+            <p class="m-0">&copy; 2026 Petals & Co. Florería & Regalería. Todos los derechos reservados.</p>
+            <p class="text-muted small mt-1">Diseñado con amor por entusiastas de la tecnología y el diseño floral.</p>
+        </div>
+    </footer>
+
+    <!-- MODAL DE BOOTSTRAP PARA VISUALIZACIÓN Y EDICIÓN DEL CARRITO -->
+    <div class="modal fade" id="modalCarrito" tabindex="-1" aria-labelledby="modalCarritoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold text-success" id="modalCarritoLabel">🛒 Mi Carrito de Compras</h5>
+                    <button type="button" class="btn-close" data-bs-toggle="modal" data-bs-target="#modalCarrito" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Lista Dinámica de Productos -->
+                    <div id="items-carrito" class="table-responsive">
+                    </div>
+                    <div class="text-end mt-4">
+                        <h4 class="fw-bold">Total: <span id="total-carrito" class="text-success">$0</span></h4>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Seguir Comprando</button>
+                    <button type="button" class="btn btn-custom" id="btn-finalizar-compra">Finalizar Compra</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JavaScript Bundle con Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Script Principal -->
+    <script src="script.js"></script>
+</body>
+</html>

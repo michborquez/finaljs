@@ -1,0 +1,201 @@
+ /* VARIABLES DE DISEÑO */
+:root {
+    --rosa-claro: #FCE4EC;
+    --rosa-acento: #F8BBD0;
+    --verde-principal: #2E7D32;
+    --verde-claro: #E8F5E9;
+    --blanco: #FFFFFF;
+    --oscuro: #212121;
+    --fuente-titulos: 'Playfair Display', serif;
+    --fuente-cuerpo: 'Poppins', sans-serif;
+}
+
+/* GENERALES */
+body {
+    font-family: var(--fuente-cuerpo);
+    color: var(--oscuro);
+    background-color: var(--blanco);
+    scroll-behavior: smooth;
+}
+
+h1, h2, h3, .logo, .section-title {
+    font-family: var(--fuente-titulos);
+}
+
+.section-title {
+    color: var(--verde-principal);
+    font-weight: 700;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: var(--rosa-acento);
+    margin: 8px auto 0 auto;
+}
+
+/* BOTÓN PERSONALIZADO */
+.btn-custom {
+    background-color: var(--verde-principal);
+    color: var(--blanco);
+    font-weight: 600;
+    padding: 10px 24px;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    border: none;
+}
+.btn-custom:hover {
+    background-color: #1b5e20;
+    color: var(--blanco);
+    transform: translateY(-2px);
+}
+
+.btn-cart {
+    background-color: var(--rosa-claro);
+    color: #c2185b;
+    font-weight: 600;
+    border: 1px solid var(--rosa-acento);
+}
+.btn-cart:hover {
+    background-color: var(--rosa-acento);
+}
+
+/* HEADER & NAVEGACIÓN */
+.main-header {
+    border-bottom: 2px solid var(--rosa-claro);
+}
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--verde-principal) !important;
+}
+.main-nav ul li a {
+    text-decoration: none;
+    color: var(--oscuro);
+    font-weight: 600;
+    transition: color 0.2s;
+}
+.main-nav ul li a:hover {
+    color: var(--verde-principal);
+}
+
+/* Background Aplicado */
+.hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.3)), 
+                url('https://images.unsplash.com/photo-1526047932273-341f2a7631f9?q=80&w=1600&auto=format&fit=crop') no-repeat center center/cover;
+    height: 60vh;
+}
+.hero-section .container {
+    background-color: rgba(46, 125, 50, 0.75); /* Filtro verde corporativo suavizado */
+    backdrop-filter: blur(4px);
+}
+
+/* Flexbox Responsivo */
+.products-flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+.product-card {
+    background-color: var(--blanco);
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    width: 300px; 
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+}
+.product-img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+.product-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.product-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.product-price {
+    font-size: 1.25rem;
+    color: var(--verde-principal);
+    font-weight: 700;
+    margin-top: auto;
+    margin-bottom: 15px;
+}
+
+/* SECCIÓN RESEÑAS */
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+.review-card {
+    background-color: var(--blanco);
+    padding: 25px;
+    border-radius: 10px;
+    border-left: 5px solid var(--rosa-acento);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+.stars {
+    color: #FFB300;
+    margin-bottom: 8px;
+}
+
+/* SECCIÓN CONTACTO */
+.contacto-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+}
+.contacto-form-container {
+    background-color: var(--verde-claro);
+    padding: 30px;
+    border-radius: 15px;
+}
+
+/* FOOTER */
+.main-footer {
+    border-top: 4px solid var(--rosa-acento);
+}
+
+/* RESPONSIVIDAD */
+@media (max-width: 992px) {
+    .contacto-wrapper {
+        grid-template-columns: 1fr; 
+        gap: 30px;
+    }
+}
+
+@media (max-width: 576px) {
+    .main-header .container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .main-nav ul {
+        gap: 15px !important;
+    }
+    .hero-section {
+        height: auto;
+        padding: 60px 0;
+    }
+}
