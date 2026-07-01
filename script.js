@@ -1,4 +1,3 @@
-JavaScript
 document.addEventListener("DOMContentLoaded", () => {
     inicializarApp();
 });
