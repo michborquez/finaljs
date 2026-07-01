@@ -9,3 +9,5 @@ Este es el proyecto integrador final del módulo de Front End JS. Consiste en un
 - **Carrito de Compras Completo**: CRUD del carrito en tiempo real (añadir, editar cantidades, eliminar de a un producto) persistido de forma local con `LocalStorage`.
 - **Formulario de Contacto**: Validación de campos en el cliente con JavaScript y procesamiento de envíos mediante Formspree.
 - **Multimedia y Accesibilidad**: Inclusión de mapas interactivos, textos alternativos (`alt`) en todas las imágenes y navegación fluida por teclado.
+
+Web: https://michborquez.github.io/finaljs/
