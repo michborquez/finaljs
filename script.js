@@ -44,21 +44,30 @@ function renderizarTarjetas(productos) {
     contenedor.innerHTML = "";
 
     productos.forEach(prod => {
-        const tarjeta = document.createElement("article");
-        tarjeta.classList.add("product-card");
-        
-        tarjeta.innerHTML = `
-            <img src="${prod.image}" alt="Fotografía en alta nitidez de ${prod.title}" class="product-img">
-            <div class="product-body">
-                <h3 class="product-title">${prod.title}</h3>
-                <p class="product-price">$${prod.price.toLocaleString('es-AR')}</p>
-                <button class="btn btn-custom w-100 btn-add-cart" data-id="${prod.id}" data-title="${prod.title}" data-price="${prod.price}">
-                    Añadir al carrito
-                </button>
+        contenedorProductos.innerHTML = ""; // Limpia el cargando
+
+productos.forEach(producto => {
+    const card = document.createElement('div');
+    // Esto hace que cambie de 1 a 2 o 3 columnas según el tamaño de la pantalla
+    card.className = "col-12 col-md-6 col-lg-4"; 
+    
+    card.innerHTML = `
+        <div class="card h-100 shadow-sm border-0">
+            <img src="${producto.imagen}" class="card-img-top object-fit-cover" alt="${producto.nombre}" style="height: 250px;">
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title fw-bold">${producto.nombre}</h5>
+                <p class="card-text text-muted flex-grow-1">${producto.descripcion}</p>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <span class="fs-5 fw-bold text-danger">$${producto.precio}</span>
+                    <button class="btn btn-outline-danger btn-sm mt-auto" onclick="agregarAlCarrito(${producto.id})">
+                        Agregar al carrito
+                    </button>
+                </div>
             </div>
-        `;
-        contenedor.appendChild(tarjeta);
-    });
+        </div>
+    `;
+    contenedorProductos.appendChild(card);
+});
 
 
     contenedor.querySelectorAll(".btn-add-cart").forEach(boton => {
