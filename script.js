@@ -4,21 +4,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
 let carrito = JSON.parse(localStorage.getItem("carrito_petals")) || [];
 
+
 function inicializarApp() {
     obtenerProductos();
     actualizarContadorInterfaz();
     configurarFormulario();
     renderizarCarrito();
 
+   
     document.getElementById("btn-finalizar-compra").addEventListener("click", finalizarCompra);
 }
 
+/* 
+   7. FETCH API & VISUALIZACIÓN DE PRODUCTOS
+    */
 async function obtenerProductos() {
     const contenedor = document.getElementById("contenedor-productos");
     const spinner = document.getElementById("loading");
 
     try {
-        
+       
         const productosMock = [
             { id: 1, title: "Ramo Primavera Elegante", price: 3500, image: "https://images.unsplash.com/photo-1561181286-d3fee7d55364?q=80&w=500&auto=format&fit=crop" },
             { id: 2, title: "Caja de Rosas Premium", price: 5200, image: "https://images.unsplash.com/photo-1525310072745-f49212b5ac6d?q=80&w=500&auto=format&fit=crop" },
@@ -28,6 +33,7 @@ async function obtenerProductos() {
             { id: 6, title: "Globo Aerostático Temático", price: 4500, image: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?q=80&w=500&auto=format&fit=crop" }
         ];
 
+       
         await new Promise(resolve => setTimeout(resolve, 800));
         
         spinner.classList.add("d-none");
@@ -44,32 +50,23 @@ function renderizarTarjetas(productos) {
     contenedor.innerHTML = "";
 
     productos.forEach(prod => {
-        contenedorProductos.innerHTML = ""; // Limpia el cargando
-
-productos.forEach(producto => {
-    const card = document.createElement('div');
-    // Esto hace que cambie de 1 a 2 o 3 columnas según el tamaño de la pantalla
-    card.className = "col-12 col-md-6 col-lg-4"; 
-    
-    card.innerHTML = `
-        <div class="card h-100 shadow-sm border-0">
-            <img src="${producto.imagen}" class="card-img-top object-fit-cover" alt="${producto.nombre}" style="height: 250px;">
-            <div class="card-body d-flex flex-column">
-                <h5 class="card-title fw-bold">${producto.nombre}</h5>
-                <p class="card-text text-muted flex-grow-1">${producto.descripcion}</p>
-                <div class="d-flex justify-content-between align-items-center mt-3">
-                    <span class="fs-5 fw-bold text-danger">$${producto.precio}</span>
-                    <button class="btn btn-outline-danger btn-sm mt-auto" onclick="agregarAlCarrito(${producto.id})">
-                        Agregar al carrito
-                    </button>
-                </div>
+        const tarjeta = document.createElement("article");
+        tarjeta.classList.add("product-card");
+        
+        tarjeta.innerHTML = `
+            <img src="${prod.image}" alt="Fotografía en alta nitidez de ${prod.title}" class="product-img">
+            <div class="product-body">
+                <h3 class="product-title">${prod.title}</h3>
+                <p class="product-price">$${prod.price.toLocaleString('es-AR')}</p>
+                <button class="btn btn-custom w-100 btn-add-cart" data-id="${prod.id}" data-title="${prod.title}" data-price="${prod.price}">
+                    Añadir al carrito
+                </button>
             </div>
-        </div>
-    `;
-    contenedorProductos.appendChild(card);
-});
+        `;
+        contenedor.appendChild(tarjeta);
+    });
 
-
+    
     contenedor.querySelectorAll(".btn-add-cart").forEach(boton => {
         boton.addEventListener("click", (e) => {
             const item = {
@@ -83,7 +80,9 @@ productos.forEach(producto => {
     });
 }
 
-
+/* 
+   8 y 9. LÓGICA DEL CARRITO DE COMPRAS
+    */
 function agregarAlCarrito(itemNuevo) {
     const existe = carrito.find(prod => prod.id === itemNuevo.id);
 
@@ -98,7 +97,7 @@ function agregarAlCarrito(itemNuevo) {
 }
 
 function sincronizarAlmacenamiento() {
-   
+  
     localStorage.setItem("carrito_petals", JSON.stringify(carrito));
     actualizarContadorInterfaz();
     renderizarCarrito();
@@ -159,7 +158,7 @@ function renderizarCarrito() {
     contenedorItems.innerHTML = tablaHTML;
     txtTotal.textContent = `$${sumaTotal.toLocaleString('es-AR')}`;
 
-    // Configurar eventos para cambios en inputs de cantidad
+   
     contenedorItems.querySelectorAll(".input-cambio-cantidad").forEach(input => {
         input.addEventListener("change", (e) => {
             const id = parseInt(e.target.getAttribute("data-id"));
@@ -170,7 +169,7 @@ function renderizarCarrito() {
         });
     });
 
-    
+   
     contenedorItems.querySelectorAll(".btn-eliminar-item").forEach(btn => {
         btn.addEventListener("click", (e) => {
             const id = parseInt(e.target.getAttribute("data-id"));
@@ -203,24 +202,29 @@ function finalizarCompra() {
     carrito = [];
     sincronizarAlmacenamiento();
     
+    // Cierra el modal de Bootstrap de manera programática
     const modalEl = document.getElementById('modalCarrito');
     const modalInstance = bootstrap.Modal.getInstance(modalEl);
     if(modalInstance) modalInstance.hide();
 }
 
+/* 
+   2 & 7. VALIDACIÓN DE FORMULARIO DE CONTACTO
+    */
 function configurarFormulario() {
     const formulario = document.getElementById("form-contacto");
     
     formulario.addEventListener("submit", (e) => {
         e.preventDefault();
         
-        // Obtención de elementos del DOM
+       
         const inputNombre = document.getElementById("nombre");
         const inputEmail = document.getElementById("email");
         const inputMensaje = document.getElementById("mensaje");
 
         let esValido = true;
 
+       
         if (inputNombre.value.trim() === "") {
             document.getElementById("error-nombre").classList.remove("d-none");
             esValido = false;
@@ -228,6 +232,7 @@ function configurarFormulario() {
             document.getElementById("error-nombre").classList.add("d-none");
         }
 
+        
         const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!regexEmail.test(inputEmail.value.trim())) {
             document.getElementById("error-email").classList.remove("d-none");
@@ -236,7 +241,7 @@ function configurarFormulario() {
             document.getElementById("error-email").classList.add("d-none");
         }
 
-
+      
         if (inputMensaje.value.trim() === "") {
             document.getElementById("error-mensaje").classList.remove("d-none");
             esValido = false;
@@ -244,12 +249,13 @@ function configurarFormulario() {
             document.getElementById("error-mensaje").classList.add("d-none");
         }
 
-    
+        
         if (esValido) {
-         
+            
             document.getElementById("form-success").classList.remove("d-none");
             formulario.reset();
-          
+            
+            
             setTimeout(() => {
                 document.getElementById("form-success").classList.add("d-none");
             }, 5000);
